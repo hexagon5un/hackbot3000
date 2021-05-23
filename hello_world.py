@@ -18,10 +18,7 @@ botpassword = "bad_password_changeme"
 DEBUG = True
 
 
-## Connect
-irc = socket.socket()
-irc.connect((server, port))
-
+## Functions
 def receive(numBytes = 1024):
     return irc.recv(numBytes).decode("UTF-8")
 
@@ -44,18 +41,22 @@ def parse(msg):
         pass
     return(parsed)
 
-## Connect
-send("USER {} 0 * :{}".format(botnick, realname))
-send("NICK {}".format(botnick))
-time.sleep(5)
+## Connect and Login
 
+irc = socket.socket()
+irc.connect((server, port))
+
+send("NICK {}".format(botnick))
+send("USER {} 0 * :{}".format(botnick, realname))
 if REGISTERED:
     # /msg NickServ identify your_password_here
     say("identify {}".format(botpassword), "NickServ")
 
-# join the channel
+time.sleep(5)
 send("JOIN {}".format(channel))
 
+
+## Endless Event loop.  
 while True:
     text = receive().strip()  ## blocking, waits for message
     if DEBUG:
@@ -79,10 +80,13 @@ while True:
         ## personal message 
         if parsed["to"] == botnick:  
             if parsed["message"] == "shutdown":
-                irc.close()
+                say("Goodbye!")
                 break
             else:
                 ## loopback test: reply with personal message
                 say(parsed["message"], parsed["nick"])
 
+## Cleanup
+send('PART {} :{}'.format(channel, "Goodbye cruel world!"))
+irc.close()
 
