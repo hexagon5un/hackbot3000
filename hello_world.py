@@ -55,6 +55,12 @@ if REGISTERED:
 time.sleep(5)
 send("JOIN {}".format(channel))
 
+## Implementation!
+def handle_help():
+    say("I'm a hello world bot.")
+    say("Say hi, insult my mama, or talk to me in private.")
+    say("My code is at https://github.com/hexagon5un/hackbot3000")
+
 
 ## Endless Event loop.  
 while True:
@@ -92,9 +98,4 @@ while True:
 send('PART {}'.format(channel))
 send('QUIT :{}'.format("I'm done."))
 irc.close()
-
-## Implementation!
-def handle_help():
-    say("I'm a hello world bot.\nSay hi, insult my mama, or talk to me in
-    private. \nMy code is at https://github.com/hexagon5un/hackbot3000")
 
