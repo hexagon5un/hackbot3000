@@ -25,6 +25,5 @@ There are really only a couple of things you _need_ to do to make a bot.
 * And the rest is up to you.  `hello_world.py` has some too-basic scaffolding to give you ideas.
 
 * If you want to get serious, you probably want to look around:
-
-** `Phenny` is a good baseline for functionality
+  [`Phenny`](http://inamidst.com/phenny/) is a good baseline for functionality.
 
