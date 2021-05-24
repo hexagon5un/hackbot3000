@@ -13,7 +13,8 @@ botnick = "hackbot3000"
 realname = "Botty McBotface" ## shows up when someone WHOs you. Say you're a bot?
 
 REGISTERED = True  ## log in on the bot account, register it.
-botpassword = "bad_password_changeme"
+if REGISTERED:
+    botpassword = raw_input("password: ").strip()
 
 DEBUG = True
 
@@ -26,9 +27,6 @@ def send(msg):
     irc.send(bytes(msg + "\n", "UTF-8"))
 
 def say(msg, dest=channel):
-    """Sends a message, default to the registered channel,
-        but you can write to other channels and/or direct message users too.
-        IRC client equiv: /msg """
     send("PRIVMSG {} :{}".format(dest, msg))
 
 def parse(msg):
