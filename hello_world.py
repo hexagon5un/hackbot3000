@@ -9,10 +9,10 @@ server = "irc.libera.chat"
 port = 6667
 channel = "#hackaday-bots"
 
-botnick = "hackbot3000"
+botnick = "hackbot3001"
 realname = "Botty McBotface" ## shows up when someone WHOs you. Say you're a bot?
 
-REGISTERED = True  ## log in on the bot account, register it.
+REGISTERED = False  ## log in on the bot account, register it.
 if REGISTERED:
     botpassword = input("password: ").strip()
 
