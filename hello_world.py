@@ -87,6 +87,7 @@ while True:
                 say(parsed["message"], parsed["nick"])
 
 ## Cleanup
-send('PART {} :{}'.format(channel, "Goodbye cruel world!"))
+send('PART {}'.format(channel))
+send('QUIT :{}'.format("I'm done."))
 irc.close()
 
