@@ -14,7 +14,7 @@ realname = "Botty McBotface" ## shows up when someone WHOs you. Say you're a bot
 
 REGISTERED = True  ## log in on the bot account, register it.
 if REGISTERED:
-    botpassword = raw_input("password: ").strip()
+    botpassword = input("password: ").strip()
 
 DEBUG = True
 
