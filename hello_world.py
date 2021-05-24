@@ -18,16 +18,18 @@ if REGISTERED:
 
 DEBUG = True
 
-
 ## Functions
 def receive(numBytes = 1024):
     return irc.recv(numBytes).decode("UTF-8")
 
-def send(msg):
-    irc.send(bytes(msg + "\n", "UTF-8"))
+def send(text):
+    irc.send(bytes(text + "\n", "UTF-8"))
 
-def say(msg, dest=channel):
-    send("PRIVMSG {} :{}".format(dest, msg))
+def msg(to, text):
+    send("PRIVMSG {} :{}".format(to, text))
+
+def say(text):  # convenience wrapper
+    msg(to=channel, text=text)
 
 def parse(msg):
     if " PRIVMSG " in msg:
@@ -48,7 +50,7 @@ send("NICK {}".format(botnick))
 send("USER {} 0 * :{}".format(botnick, realname))
 if REGISTERED:
     # /msg NickServ identify your_password_here
-    say("identify {}".format(botpassword), "NickServ")
+    msg("NickServ", "identify {}".format(botpassword))
 
 time.sleep(5)
 send("JOIN {}".format(channel))
@@ -75,6 +77,8 @@ while True:
                     say( "Hello {}".format(parsed["nick"]) ) 
                 if "mama" in parsed["message"]:
                     say("Don't you talk about my mama!")
+                if "help" in parsed["message"]:
+                    handle_help()
         ## personal message 
         if parsed["to"] == botnick:  
             if parsed["message"] == "shutdown":
@@ -82,10 +86,15 @@ while True:
                 break
             else:
                 ## loopback test: reply with personal message
-                say(parsed["message"], parsed["nick"])
+                msg(parsed["nick"], parsed["message"])
 
 ## Cleanup
 send('PART {}'.format(channel))
 send('QUIT :{}'.format("I'm done."))
 irc.close()
+
+## Implementation!
+def handle_help():
+    say("I'm a hello world bot.\nSay hi, insult my mama, or talk to me in
+    private. \nMy code is at https://github.com/hexagon5un/hackbot3000")
 
